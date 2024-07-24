@@ -12,6 +12,7 @@ const boxesContainer = document.querySelector("#boxes")
 function createBoxes(amount){
   let boxSize = 30;
 boxesContainer.innerHTML = '';
+const boxArray = [];
   for (let i = 0; i < amount; i++) {
     const box = document.createElement("div");
     box.style.backgroundColor = getRandomHexColor();
@@ -19,20 +20,22 @@ boxesContainer.innerHTML = '';
     box.style.height = `${boxSize}px`;
     box.style.margin = '10px';
     boxSize +=10;
-
-    boxesContainer.append(box);
+    boxArray.push(box);
+    
   }
-}
-
-function destroyBoxes(){
-  boxesContainer.innerHTML = '';
+  return boxArray;
 }
 
 createButton.addEventListener('click', () => {
   const amount = +inputValue.value;
   if (amount >= 1 && amount <= 100){
-    createBoxes(amount);
+    boxesContainer.append(...createBoxes(amount));
+    
   }
 });
+
+function destroyBoxes(){
+  boxesContainer.innerHTML = '';
+}
 
 destroyButton.addEventListener('click', destroyBoxes);
